@@ -28,8 +28,11 @@ class BeerTastingController extends Controller
             $beerTasting->questions()->attach($request->questions);
         }
         if ($request->beers) {
-            foreach($request->beers as $position => $beer){
-                $beerTasting->beers()->attach($beer, ['position' => $position]);
+            foreach($request->beers as $position => $untappedBeerId){
+                $beer = Beer::where('untapped_id', $untappedBeerId)->first();
+                if($beer){
+                    $beerTasting->beers()->attach($beer, ['position' => $position]);
+                }
             }
         }
         return redirect()->route('beer-tasting.index');
@@ -76,19 +79,17 @@ class BeerTastingController extends Controller
     {
         $questions = $beerTasting->questions;
         $beers = $beerTasting->beers;
-
         $results = [];
-
         foreach($beers as $beer){
             $beerResults = $beerTasting->results()->wherePivot('beer_id', $beer->id)->get()->map(function($result){
                 $personId = $result->pivot->person_id;
                 $person = Person::find($personId);
                 $result->person = $person;
+                $result->answer = (float)$result->pivot->answer;
                 return $result;
             });
-            $results[$beer->id] = $beerResults;
+            $results[$beer->id] = $beerResults->sortBy('answer');
         }
-
         return view('beer-tasting.results', compact('beerTasting', 'questions', 'beers', 'results'));
     }
 }

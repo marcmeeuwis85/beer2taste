@@ -14,8 +14,10 @@
                 <td>{{$beerTasting->name}}</td>
                 <td>{{\Carbon\Carbon::parse($beerTasting->created_at)->toFormattedDateString()}}</td>
                 <td>
-                    <a href="{{route('beer-tasting.join', $beerTasting->id)}}" class="btn btn-danger">Meedoen</a> |
-                    <a href="{{route('beer-tasting.results', $beerTasting->id)}}" class="btn btn-success">Resultaten</a>
+                    <div class="btn-group-sm">
+                        <a href="{{route('beer-tasting.join', $beerTasting->id)}}" class="btn btn-secondary col-sm-12 col-md-4">Meedoen</a>
+                        <a href="{{route('beer-tasting.results', $beerTasting->id)}}" class="btn btn-success col-sm-12 col-md-4">Resultaten</a>
+                    </div>
                 </td>
             </tr>
         @endforeach

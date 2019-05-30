@@ -14,5 +14,6 @@
     @include('layouts.menu')
     @yield('content')
 </div>
+@yield('scripts')
 </body>
 </html>

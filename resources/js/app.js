@@ -13,3 +13,5 @@ window.$ = $;
 
 import 'jquery-ui/ui/widgets/slider.js';
 require('jquery-ui-touch-punch/jquery.ui.touch-punch.js');
+require('chart.js');
+require('./bapp.js');

@@ -1,43 +1,20 @@
 @extends('layouts.master')
 @section('content')
     <h1>Resultaten {{$beerTasting->name}}</h1>
-    <hr/>
-    @foreach($beers as $beer)
-        <h2>{{$beer->name}}</h2>
-        <div class="card mb-3">
-            <div class="card-body">
-                @foreach($questions as $question)
-                    <h3>{{$question->name}}</h3>
-                    <p>{{$question->description}}</p>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Persoon</th>
-                            <th>Antwoord</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($results[$beer->id]->where('id', $question->id) as $result)
-                            <tr>
-                                <td>{{$result->person->name}}</td>
-                                <td>{{$result->pivot->answer}}</td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <td>Gemiddeld</td>
-                            <td>
-                                @if($question->type == 'slide')
-                                    {{ \App\Helpers\Helper::getPivotAverage($results[$beer->id]->where('id', $question->id),'answer')}}
-                                @endif
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                    <hr/>
-                @endforeach
-            </div>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="nav-tab-questions" data-toggle="tab" href="#tab-questions" role="tab" aria-controls="tab-questions" aria-selected="true">Per vraag</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="nav-tab-beers" data-toggle="tab" href="#tab-beers" role="tab" aria-controls="tab-beers" aria-selected="false">Per bier</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active mt-3" id="tab-questions" role="tabpanel" aria-labelledby="tab-questions">
+            @include('beer-tasting.partials.results-tab-questions')
         </div>
-    @endforeach
+        <div class="tab-pane fade mt-3" id="tab-beers" role="tabpanel" aria-labelledby="tab-beers">
+            @include('beer-tasting.partials.results-tab-beers')
+        </div>
+    </div>
 @endsection

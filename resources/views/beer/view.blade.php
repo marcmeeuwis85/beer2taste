@@ -4,7 +4,9 @@
 
     <form method="post">
         @csrf
-        <h1>{{$beer->name}}</h1>
+        <h1>{{$beer->brewery_name . ' - ' .$beer->name}}</h1>
+        <p>{{$beer->content}}</p>
+        <img src="{{$beer->image}}" alt="{{$beer->brewery_name . ' - ' .$beer->name}}">
         <hr>
         @foreach($questions as $group => $questions)
             <h2>{{ucfirst($group)}}</h2>
