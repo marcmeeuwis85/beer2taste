@@ -24,10 +24,9 @@ Vraag #{{$loop->iteration}}<h4>{{$question->name}}</h4>
         $("#slider-{{$question->id}}").slider({
             value: 3,
             min: 1,
-            max: 5,
+            max: 10,
             step: 1,
             slide: function (event, ui) {
-                console.log(event, ui, ui.value);
                 $("#answer-{{$question->id}}").val(ui.value);
             }
         });

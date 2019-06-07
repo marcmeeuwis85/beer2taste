@@ -46,7 +46,7 @@
 
         <div class="row">
             <div class="col-12">
-                <ul id="beers" class="list-group mt-3">
+                <ul id="beers" class="sortable-list mt-3">
 
                 </ul>
             </div>
@@ -91,7 +91,41 @@
                     $('#search-beer').click();
                     return false;
                 }
-            })
+            });
+
+            $('#beers').sortable();
         })
     </script>
 @append
+
+<style>
+    body.dragging, body.dragging * {
+        cursor: move !important;
+    }
+
+    .dragged {
+        position: absolute;
+        opacity: 0.5;
+        z-index: 2000;
+    }
+
+    .sortable-list{
+        padding: 0;
+        list-style: none;
+        margin: 0;
+    }
+
+    .sortable-list li{
+        padding: 10px;
+        background: #fff;
+        border: 1px solid #ccc;
+    }
+
+    .sortable-list li.placeholder {
+        position: relative;
+        background: #fff;
+    }
+    .sortable-list li.placeholder:before {
+        position: absolute;
+    }
+</style>

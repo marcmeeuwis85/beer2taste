@@ -1,6 +1,15 @@
 @foreach($questions as $question)
     <h2>{{$question->name}}</h2>
     <p>{{$question->description}}</p>
+    <?php
+    $beerResults = [];
+    $i = 0;
+    foreach($beers as $beer){
+        $averageAnswer = $results[$beer->id]->where('id', $question->id)->avg('answer');
+        $beerResults[$i] = $averageAnswer;
+        $i++;
+    }
+    ?>
     <canvas id="myChart{{$question->id}}" width="300" height="300"></canvas>
     <script>
         var ctx = document.getElementById('myChart{{$question->id}}').getContext('2d');
@@ -10,7 +19,7 @@
                 labels: ["{!! $beers->implode('name', '","')!!}"],
                 datasets: [{
                     label: '# of Votes',
-                    data: [{{$beers->implode('id', ',')}}],
+                    data: [{{implode(',',$beerResults)}}],
                     // backgroundColor: [
                     //     'rgba(255, 99, 132, 0.2)',
                     //     'rgba(54, 162, 235, 0.2)',

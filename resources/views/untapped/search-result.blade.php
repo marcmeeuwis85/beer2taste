@@ -36,9 +36,15 @@
             beer += '<span><img style="width: 50px; height: 50px; margin-right: 20px;" src="' + $(this).attr('data-image') + '" alt=""></span>';
             beer += '<span>' + $(this).attr('data-name') + '</span>';
             beer += '<input type="hidden" name="beers[]" value="' + $(this).attr('data-id') + '" />';
+            beer += '<button type="button" class="close delete-added-beer" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
             beer += '</li>';
             $('#beers').append(beer);
             return false;
         });
+
+        $('body').on('click', '.delete-added-beer', function(){
+            $(this).closest('li').remove();
+            return false;
+        })
     })
 </script>

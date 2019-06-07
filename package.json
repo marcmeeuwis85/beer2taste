@@ -26,6 +26,8 @@
     },
     "dependencies": {
         "chart.js": "^2.8.0",
+        "jquery-sortable": "^0.9.13",
+        "jquery-ui-dist": "^1.12.1",
         "jquery-ui-touch-punch": "^0.2.3"
     }
 }
